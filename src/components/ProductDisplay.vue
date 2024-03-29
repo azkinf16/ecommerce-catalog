@@ -1,21 +1,43 @@
 <template>
   <div :class="productCategory">
-
     <!-- Loader -->
-    <div v-if="loading" class="loader"></div>
-    
+    <div
+      v-if="loading"
+      class="loader"
+      :style="{
+        borderTop:
+          productCategory === 'men-section'
+            ? '8px solid var(--dark-blue)'
+            : productCategory === 'women-section'
+            ? '8px solid var(--dark-pink)'
+            : productCategory === 'unavailable-product'
+            ? '8px solid var(--black)'
+            : '',
+      }"
+    ></div>
+
     <div
       class="container"
-      v-if="productCategory === 'men-section' || productCategory === 'women-section'"
+      v-if="
+        productCategory === 'men-section' || productCategory === 'women-section'
+      "
     >
-      
       <div class="left-section">
         <img :src="product.image" alt="Product Image" />
       </div>
 
-      
       <div class="right-section">
-        <h1 id="title-product">{{ product.title }}</h1>
+        <h1
+          :style="{
+            color:
+              productCategory === 'men-section'
+                ? 'var(--dark-blue)'
+                : 'var(--dark-pink)',
+          }"
+          id="title-product"
+        >
+          {{ product.title }}
+        </h1>
         <div class="type-section">
           <p id="type-product">{{ product.category }}</p>
           <p>{{ product.rating?.rate }} ⭐</p>
@@ -23,10 +45,44 @@
         <div class="divider"></div>
         <p id="desc-product">{{ product.description }}</p>
         <div class="divider"></div>
-        <h1>${{ product.price }}</h1>
+        <h1
+          :style="{
+            color:
+              productCategory === 'men-section'
+                ? 'var(--dark-blue)'
+                : 'var(--dark-pink)',
+          }"
+        >
+          ${{ product.price }}
+        </h1>
         <div class="button">
-          <div id="button-1">Buy Now</div>
-          <div id="button-2" @click="getNextProduct">Next Product</div>
+          <div
+            :style="{
+              background:
+                productCategory === 'men-section'
+                  ? 'var(--dark-blue)'
+                  : 'var(--dark-pink)',
+            }"
+            id="button-1"
+          >
+            Buy Now
+          </div>
+          <div
+            :style="{
+              color:
+                productCategory === 'men-section'
+                  ? 'var(--dark-blue)'
+                  : 'var(--dark-pink)',
+              border:
+                productCategory === 'men-section'
+                  ? '2px solid var(--dark-blue)'
+                  : '2px solid var(--dark-pink)',
+            }"
+            id="button-2"
+            @click="getNextProduct"
+          >
+            Next Product
+          </div>
         </div>
       </div>
     </div>
@@ -45,7 +101,7 @@ export default {
       index: 1,
       product: {},
       productCategory: "men-section",
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -147,7 +203,7 @@ export default {
 }
 
 .unavailable-product {
-  background-image: url('../assets/sad_face.png');
+  background-image: url("../assets/sad_face.png");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -183,7 +239,6 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   border: 8px solid #f3f3f3;
-  border-top: 8px solid var(--dark-pink); /* Blue */
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -191,12 +246,15 @@ export default {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 h1 {
-  color: var(--dark-pink);
   font-size: 28px;
 }
 
@@ -215,7 +273,6 @@ p {
 
 #button-1 {
   width: 100%;
-  background: var(--dark-pink);
   text-align: center;
   padding: 10px 0;
   border-radius: 5px;
@@ -226,11 +283,9 @@ p {
 
 #button-2 {
   width: 100%;
-  border: 2px solid var(--dark-pink);
   text-align: center;
   padding: 10px 0;
   border-radius: 5px;
-  color: var(--dark-pink);
   font-size: 20px;
   cursor: pointer;
 }
